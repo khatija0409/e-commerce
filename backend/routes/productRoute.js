@@ -1,8 +1,14 @@
 //route or url leading to products
-const express=require("express");
-const router=express.Router();
+const express = require("express");
+const router = express.Router();
 //import function from productController
-const { getAllProducts,createProduct,updateProduct,deleteProduct, getProductDetails }=require("../controllers/productController");
+const {
+  getAllProducts,
+  createProduct,
+  updateProduct,
+  deleteProduct,
+  getProductDetails,
+} = require("../controllers/productController");
 //when route is matched the callback is fired by post method
 //get method to only read all products
 router.route("/products").get(getAllProducts);
@@ -15,4 +21,4 @@ router.route("/product/:id").delete(deleteProduct);
 //to get prod details
 router.route("/product/:id").get(getProductDetails);
 
-module.exports=router;
+module.exports = router;
