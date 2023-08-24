@@ -2,7 +2,7 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
-
+const jwt = require("jsonwebtoken");
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please enter the password"], //[if entered,if not entered]
     minLength: [8, "Password cannot be less than 8 characters"],
-    select: false, //whenever a search is made in db password will be hidden
+    select: false, //whenever a search for a user is made in db password will be hidden
   },
   avatar: {
     //profile pic
@@ -43,6 +43,7 @@ const userSchema = new mongoose.Schema({
   resetPasswordToken: String,
   resetPasswordExpire: String,
 });
+//write all databse opeartions related to user here
 //save is an event and pre menas before saving
 // we use function and not arrow func since we cnt use this. inside callback
 userSchema.pre("save", async function (next) {
@@ -54,7 +55,26 @@ userSchema.pre("save", async function (next) {
     next();
   }
 
-  this.password = await bcrypt.hash(this.password);
+  this.password = await bcrypt.hash(this.password, 10);
 });
+//JWT TOKEN>>authorization
+//after registering if we want to get logged into the website without entering login details again we use this, and if its a user/admin depending on that we can access routes
+
+//we generate tokoen and store in cookie
+//method to generate token
+//name  of methos if getJWTToken
+userSchema.methods.getJWTToken = function () {
+  //make jwt token
+  //this._id is id of individual user'seen in response of postman
+  return jwt.sign({ id: this._id }, process.env.JWT_SECRETKEY, {
+    expiresIn: process.env.JWT_EXPIRE, //expiry of log in session
+  });
+  //
+};
+// function for comparing entered password an password in db
+userSchema.methods.comparePassword = async function (enteredPassword) {
+  //password in db is inhash so use bcrypt method
+  return await bcrypt.compare(enteredPassword, this.password); //this.password is hashed password of indiv user; return true or false
+};
 
 module.exports = new mongoose.model("User", userSchema);
