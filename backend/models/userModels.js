@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const crypto = require("crypto"); //no need to install>builtIn
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -47,7 +48,7 @@ const userSchema = new mongoose.Schema({
 //save is an event and pre menas before saving
 // we use function and not arrow func since we cnt use this. inside callback
 userSchema.pre("save", async function (next) {
-  //1st update method for name email etc whatver user wants to vhnage,2nd separate update for only password
+  //if we give update option for user to chnage his profile name email ,1st update method for name email etc whatver user wants to vhnage,2nd separate update for only password
 
   //whenevr name and email is given and password is not changed , hashing shouldnt take place on already hashed password so
   if (!this.isModified("password")) {
@@ -74,7 +75,19 @@ userSchema.methods.getJWTToken = function () {
 // function for comparing entered password an password in db
 userSchema.methods.comparePassword = async function (enteredPassword) {
   //password in db is inhash so use bcrypt method
-  return await bcrypt.compare(enteredPassword, this.password); //this.password is hashed password of indiv user; return true or false
+  return await bcrypt.compare(enteredPassword, this.password); //this.password is hashed password of indiv user in db; return true or false
+};
+//creating a method for reset password
+userSchema.methods.getResetPasswordToken = function () {
+  //gen token
+  const resetToken = crypto.randomBytes(20).toString("hex"); //gives 20 random bytes which are converted to string in hexa dec format
+  //creating hash and adding resetPasswordToken to userSchema
+  this.resetPasswordToken = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex"); //which algo to use,what to update and hex gives meaningful val
+  this.resetPasswordExpire = Date.now() + 15 * 60 * 1000; //token expires in so much time
+  return resetToken;
 };
 
 module.exports = new mongoose.model("User", userSchema);

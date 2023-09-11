@@ -1,0 +1,15 @@
+bcryptjs : to store passwords in hash format so that noone can access,evn the admin using compass
+jsonwebtoken :
+validator: checks if email is entered in email sec
+nodemailer: when forgot password automatically send s link to email
+cookie-parser: to store webtoken
+body-parser:
+//if all products are not seen in get all products in postman use page keyword itll b ein next pages
+next()>after doing whatevr above next() will bcall the next or following middleware to be executed and anything below the first next will be executed after the next middlewares is excuted
+return next()>after doing whatevr above next() following statements of the current middleware will never be printed 
+//to create react app
+npx create-react-app
+//to check if its working
+npm start
+axios:to fetch data from backend
+react-helmet:new title for every page 
