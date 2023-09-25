@@ -1,15 +1,33 @@
-bcryptjs : to store passwords in hash format so that noone can access,evn the admin using compass
-jsonwebtoken :
-validator: checks if email is entered in email sec
-nodemailer: when forgot password automatically send s link to email
-cookie-parser: to store webtoken
-body-parser:
-//if all products are not seen in get all products in postman use page keyword itll b ein next pages
-next()>after doing whatevr above next() will bcall the next or following middleware to be executed and anything below the first next will be executed after the next middlewares is excuted
-return next()>after doing whatevr above next() following statements of the current middleware will never be printed 
-//to create react app
-npx create-react-app
-//to check if its working
-npm start
-axios:to fetch data from backend
-react-helmet:new title for every page 
+<!-- # bcryptjs : to store passwords in hash format so that noone can access,evn the admin using compass
+# jsonwebtoken :
+# validator: checks if email is entered in email sec
+# nodemailer: when forgot password automatically send s link to email
+# cookie-parser: to store webtoken
+# body-parser:
+# //if all products are not seen in get all products in postman use page keyword itll b ein next pages
+# next()>after doing whatevr above next() will bcall the next or following middleware to be executed and anything below the first next will be executed after the next middlewares is excuted
+# return next()>after doing whatevr above next() following statements of the current middleware will never be printed 
+# //to create react app
+# npx create-react-app
+# //to check if its working
+# npm start
+# axios:to fetch data from backend
+# react-helmet:new title for every page;to add metadata;it is like haed tag in which meta data is added
+# redux:used for state management that is whwnever any comp is added or removed its state changes it handels all this;data access can be done directly from backedn(using store) and can be updated without having nay intermedate steps 
+# in redux to create stroe>3 thigs>actions,constants,reducers
+# make components and use use selcetor use disptach to run the reducer functions and actions  -->
+<!-- 1)Create a route with exact path and component to be executed in app.js
+2)Create an .js file for the component and import it in app.js
+3)import use seelctor usedipatch since we will fetch details from redux and display it here
+4) use useEffect hook for running few tgings based on changes rendered
+5) extract data from store by husing use selector
+6)run the reducer functions using diaptch functions
+7)Fragment will show or display all the dtata fetched
+
+
+
+
+
+
+
+   -->

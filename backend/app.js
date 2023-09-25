@@ -1,6 +1,11 @@
 //make an express app by importing express
 const express = require("express");
+const cors = require('cors')
+
 const app = express();
+
+app.use(cors())
+
 //import error middleware
 const errorMiddleware = require("./middleware/error");
 const cookieParser = require("cookie-parser");

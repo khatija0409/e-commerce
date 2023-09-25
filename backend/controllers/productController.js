@@ -22,7 +22,7 @@ exports.createProduct = catchAsyncErrors(async (req, res, next) => {
 //shows all products to everone not only the admin>get req
 exports.getAllProducts = catchAsyncErrors(async (req, res, next) => {
   //for pagination
-  const resultsPerPage = 5;
+  const resultsPerPage = 8;
   const productCount = await Product.countDocuments();
 
   //creating object of class apifeatires and calling its constructor
@@ -39,6 +39,7 @@ exports.getAllProducts = catchAsyncErrors(async (req, res, next) => {
     success: true,
     products,
     productCount,
+    resultsPerPage,
   });
 });
 //function for put req that is update product>>admin
