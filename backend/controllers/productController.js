@@ -29,17 +29,20 @@ exports.getAllProducts = catchAsyncErrors(async (req, res, next) => {
   //keyword is anything that user searches after ? mark in url
   const apiFeature = new ApiFeatures(Product.find(), req.query)
     .search()
-    .filter()
-    .pagination(resultsPerPage);
+    .filter();
+  let products = await apiFeature.query;
+  let filteredProductsCount = products.length;
+  apiFeature.pagination(resultsPerPage);
 
   // we cant call product.find() again const products = await Product.find();
-  const products = await apiFeature.query; //since we have got the entire obj above
+  products = await apiFeature.query.clone(); //since we have got the entire obj above
 
   res.status(200).json({
     success: true,
     products,
     productCount,
     resultsPerPage,
+    filteredProductsCount,
   });
 });
 //function for put req that is update product>>admin

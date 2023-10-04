@@ -28,7 +28,8 @@ export const productReducer = (state = { products: [] }, action) => {
         products: action.payload.products,
         // since productCount is used in backend product controller dont change
         productsCount: action.payload.productCount,
-        resultPerPage:action.payload.resultsPerPage,
+        resultPerPage: action.payload.resultsPerPage,
+        filteredProductsCount: action.payload.filteredProductsCount,
       };
     case ALL_PRODUCT_FAIL:
       return {
@@ -65,7 +66,6 @@ export const productDetailsReducer = (state = { product: [] }, action) => {
         loading: false,
         // get all products
         product: action.payload,
-       
       };
     case PRODUCT_DETAILS_FAIL:
       return {

@@ -12,33 +12,35 @@ import {
 } from "../constants/productConstants";
 
 //this function will be called in dispatch func in home.js
-export const getProduct = (keyword="",currentPage=1) => async (dispatch) => {
-  try {
-    // dispatch is a method of store for updating the state of the store
-    dispatch({
-      type: ALL_PRODUCT_REQUEST,
-    });
-    //adding query that is after ? for seearching a prod by keyword
-    let link=`/api/v1/products?keyword=${keyword}&page=${currentPage}`;
-    // like postman axios is used
-    const { data } = await axios.get( link);
-    dispatch({
-      type: ALL_PRODUCT_SUCCESS,
-      payload:data,
-    });
-  } catch (error) {
-    // assign type and payload which will be used in switch ststement in reducer
-    dispatch({
-      type: ALL_PRODUCT_FAIL,
-      payload: error.response.data.message,
-    });
-  }
-};
+export const getProduct =
+  (keyword = "", currentPage = 1, price = [0, 25000]) =>
+  async (dispatch) => {
+    try {
+      // dispatch is a method of store for updating the state of the store
+      dispatch({
+        type: ALL_PRODUCT_REQUEST,
+      });
+      //adding query that is after ? for seearching a prod by keyword
+      let link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}`;
+      // like postman axios is used
+      const { data } = await axios.get(link);
+      dispatch({
+        type: ALL_PRODUCT_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      // assign type and payload which will be used in switch ststement in reducer
+      dispatch({
+        type: ALL_PRODUCT_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
 // for clear all errors
-export const clearErrors=()=>async(dispatch)=>{
-dispatch({
-    type:CLEAR_ERRORS,
-});
+export const clearErrors = () => async (dispatch) => {
+  dispatch({
+    type: CLEAR_ERRORS,
+  });
 };
 
 //for get indiv product details
@@ -51,10 +53,12 @@ export const getProductDetails = (id) => async (dispatch) => {
     });
     // like postman axios is used
     // used the full http//local host to eliminate proxy error
-    const { data } = await axios.get(`http://localhost:4000/api/v1/product/${id}`);
+    const { data } = await axios.get(
+      `http://localhost:4000/api/v1/product/${id}`
+    );
     dispatch({
       type: PRODUCT_DETAILS_SUCCESS,
-      payload:data.product,
+      payload: data.product,
     });
   } catch (error) {
     // assign type and payload which will be used in switch ststement in reducer
