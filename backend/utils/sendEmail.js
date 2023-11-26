@@ -10,9 +10,11 @@ const sendEmail = async (options) => {
     host: process.env.SMTP_HOST,
     port: process.env.SMPT_PORT,
     service: process.env.SMPT_SERVICE,
+    
     auth: {
       //making user from whom mail will be sent
       user: process.env.SMPT_MAIL,
+       
       pass: process.env.SMPT_PASSWORD,
     },
   });

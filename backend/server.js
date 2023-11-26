@@ -1,6 +1,7 @@
 const app = require("./app");
 //to use dot env variables import it
 const dotenv = require("dotenv");
+const cloudinary=require("cloudinary");
 // import db function
 const connectDB = require("./config/database");
 //handling uncaught exceptions like printing somethig that is nto defined nothing else can catch this error sowe write this
@@ -18,6 +19,13 @@ dotenv.config({
 });
 //connecting to db by calling db function
 connectDB();
+cloudinary.config({
+  // details will be clodinary account
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+})
+
 //listening to server
 //process.env.PORT variable is imported from config.env file
 const server = app.listen(process.env.PORT, () => {

@@ -34,6 +34,7 @@ const Header = () => {
       profileIconColor="rgba(35, 35, 35,0.8)"
       searchIconColor="rgba(35, 35, 35,0.8)"
       cartIconColor="rgba(35, 35, 35,0.8)"
+      profileIconUrl="/login"
       profileIconColorHover="#0a5aa9"
       searchIconColorHover="#0a5aa9"
       cartIconColorHover="#0a5aa9"

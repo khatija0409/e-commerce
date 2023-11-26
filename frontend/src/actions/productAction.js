@@ -13,7 +13,7 @@ import {
 
 //this function will be called in dispatch func in home.js
 export const getProduct =
-  (keyword = "", currentPage = 1, price = [0, 25000]) =>
+  (keyword = "", currentPage = 1, price = [0, 25000],category,ratings=0) =>
   async (dispatch) => {
     try {
       // dispatch is a method of store for updating the state of the store
@@ -21,7 +21,17 @@ export const getProduct =
         type: ALL_PRODUCT_REQUEST,
       });
       //adding query that is after ? for seearching a prod by keyword
-      let link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}`;
+      let link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}`;
+
+      // since deafult category value isnt given
+
+      if(category){
+        link=`/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&ratings[gte]=${ratings}`;
+      } 
+
+
+
+
       // like postman axios is used
       const { data } = await axios.get(link);
       dispatch({

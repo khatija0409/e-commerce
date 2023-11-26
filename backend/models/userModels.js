@@ -41,6 +41,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: "user", //utill he is made admin he will be user
   },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
   resetPasswordToken: String,
   resetPasswordExpire: String,
 });

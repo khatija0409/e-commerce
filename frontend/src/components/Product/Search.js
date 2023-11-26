@@ -1,5 +1,6 @@
 import React, {useState,Fragment} from 'react'
 import "./Search.css"
+import MetaData from '../layout/MetaData';
  
 const Search = ({history}) => {
 const [keyword, setKeyword] = useState("");
@@ -19,7 +20,9 @@ const searchSubmitHandler = (e) => {
 
 
 
-  return <Fragment>
+  return(
+   <Fragment>
+    <MetaData title="SEARCH" />
 <form className="searchBox" onSubmit={searchSubmitHandler}>
     <input
     type="text"
@@ -31,7 +34,8 @@ const searchSubmitHandler = (e) => {
     <input type="submit"  value="Search"/>
 
 </form>
-  </Fragment>;
+  </Fragment>
+  );
 };
 
 export default Search
