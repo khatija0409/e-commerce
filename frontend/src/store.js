@@ -5,7 +5,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import { productReducer,productDetailsReducer } from "./reducers/productReducer";
 import { forgotPasswordReducer, profileReducer, userReducer } from "./reducers/userReducer";
 import { cartReducer } from "./reducers/cartReducer";
-import { newOrderReducer } from "./reducers/orderReducer";
+import { myOrdersReducer, newOrderReducer, orderDetailsReducer } from "./reducers/orderReducer";
 // reducer>> is a func whic conatians calculation and logic to be performed on the state
 // applymiddleware>>used to apply middlewarer
 // combine reducer >>combines all reducer func into an obj that can be used to create a store
@@ -19,6 +19,8 @@ const reducer = combineReducers({
 forgotPassword:forgotPasswordReducer,
 cart:cartReducer,
 newOrder:newOrderReducer,
+myOrders:myOrdersReducer,
+orderDetails:orderDetailsReducer,
 });
 
 let initialState = {
