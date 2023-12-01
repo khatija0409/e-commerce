@@ -1,8 +1,8 @@
-import{useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import axios from "axios";
 import Header from "./components/layout/Header/Header.js";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import WebFont from "webfontloader"; //for fonts
 import React from "react";
 import Footer from "./components/layout/Footer/Footer.js";
@@ -15,7 +15,7 @@ import store from "./store";
 import { loadUser } from "./actions/userAction";
 import UserOptions from "./components/layout/Header/UserOptions.js";
 import { useSelector } from "react-redux";
-import Profile from "./components/User/Profile.js"
+import Profile from "./components/User/Profile.js";
 import ProtectedRoute from "./components/Route/ProtectedRoute";
 import UpdateProfile from "./components/User/UpdateProfile.js";
 import UpdatePassword from "./components/User/UpdatePassword.js";
@@ -24,15 +24,15 @@ import ResetPassword from "./components/User/ResetPassword.js";
 import Cart from "./components/Cart/Cart.js";
 import Shipping from "./components/Cart/Shipping.js";
 import ConfirmOrder from "./components/Cart/ConfirmOrder.js";
-import Payment from "./components/Cart/Payment.js"
+import Payment from "./components/Cart/Payment.js";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import OrderSuccess from "./components/Cart/OrderSuccess.js"
-import MyOrders from "./components/Order/MyOrders.js"
-import OrderDetails from "./components/Order/OrderDetails.js"
+import OrderSuccess from "./components/Cart/OrderSuccess.js";
+import MyOrders from "./components/Order/MyOrders.js";
+import OrderDetails from "./components/Order/OrderDetails.js";
 
 function App() {
-  const {isAuthenticated,user}=useSelector(state=>state.user)
+  const { isAuthenticated, user } = useSelector((state) => state.user);
 
   const [stripeApiKey, setStripeApiKey] = useState("");
 
@@ -41,7 +41,7 @@ function App() {
 
     setStripeApiKey(data.stripeApiKey);
   }
-  
+
   useEffect(() => {
     //load fonts from google
     WebFont.load({
@@ -49,18 +49,17 @@ function App() {
         families: ["Roboto", "Droid Sans", "Chilanka"],
       },
     });
-    // the user state will be maintained when we return to home screen and if we are already logged in 
-store.dispatch(loadUser());
+    // the user state will be maintained when we return to home screen and if we are already logged in
+    store.dispatch(loadUser());
 
-getStripeApiKey();
-
+    getStripeApiKey();
   }, []);
 
   return (
     <Router>
       <Header />
       {/* if user is logged in we show that user is logged in by this feature */}
-      {isAuthenticated && <UserOptions user={user}/>}
+      {isAuthenticated && <UserOptions user={user} />}
       {/* to get home page */}
       <Route exact path="/" component={Home} />
       {/* to get details of single product */}
@@ -72,26 +71,30 @@ getStripeApiKey();
       <Route exact path="/login" component={LoginSignUp} />
       <ProtectedRoute exact path="/account" component={Profile} />
       <ProtectedRoute exact path="/me/update" component={UpdateProfile} />
-      <ProtectedRoute exact path="/password/update" component={UpdatePassword} />
+      <ProtectedRoute
+        exact
+        path="/password/update"
+        component={UpdatePassword}
+      />
       {/* not protected since this becomes when we arent lpogged in */}
       <Route exact path="/password/forgot" component={ForgotPassword} />
       <Route exact path="/password/reset/:token" component={ResetPassword} />
       <Route exact path="/cart" component={Cart} />
       <ProtectedRoute exact path="/shipping" component={Shipping} />
-    
-      <ProtectedRoute exact path="/order/confirm" component={ConfirmOrder} />
+
       {/* belongs to stripe component */}
-       { stripeApiKey && (<Elements stripe={loadStripe(stripeApiKey)}>
-       <ProtectedRoute exact path="/process/payment" component={Payment} />
-       
-       
-       </Elements>)}
-       <ProtectedRoute exact path="/success" component={OrderSuccess} />
-       <ProtectedRoute exact path="/orders" component={MyOrders} />
-       <ProtectedRoute exact path="/order/:id" component={OrderDetails} />
-
-
-
+      {stripeApiKey && (
+        <Elements stripe={loadStripe(stripeApiKey)}>
+          <ProtectedRoute exact path="/process/payment" component={Payment} />
+        </Elements>
+      )}
+      <ProtectedRoute exact path="/success" component={OrderSuccess} />
+      <ProtectedRoute exact path="/orders" component={MyOrders} />
+      <Switch>
+        {/* at once only one page is loaded othrwise btoh will try to load at same time and  cause prob */}
+        <ProtectedRoute exact path="/order/confirm" component={ConfirmOrder} />
+        <ProtectedRoute exact path="/order/:id" component={OrderDetails} />
+      </Switch>
 
       <Footer />
     </Router>

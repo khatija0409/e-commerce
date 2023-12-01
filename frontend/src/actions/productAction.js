@@ -8,12 +8,15 @@ import {
   PRODUCT_DETAILS_REQUEST,
   PRODUCT_DETAILS_SUCCESS,
   PRODUCT_DETAILS_FAIL,
+  NEW_REVIEW_REQUEST,
+  NEW_REVIEW_SUCCESS,
+  NEW_REVIEW_FAIL,
   CLEAR_ERRORS,
 } from "../constants/productConstants";
 
 //this function will be called in dispatch func in home.js
 export const getProduct =
-  (keyword = "", currentPage = 1, price = [0, 25000],category,ratings=0) =>
+  (keyword = "", currentPage = 1, price = [0, 25000], category, ratings = 0) =>
   async (dispatch) => {
     try {
       // dispatch is a method of store for updating the state of the store
@@ -25,12 +28,9 @@ export const getProduct =
 
       // since deafult category value isnt given
 
-      if(category){
-        link=`/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&ratings[gte]=${ratings}`;
-      } 
-
-
-
+      if (category) {
+        link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&ratings[gte]=${ratings}`;
+      }
 
       // like postman axios is used
       const { data } = await axios.get(link);
@@ -74,6 +74,28 @@ export const getProductDetails = (id) => async (dispatch) => {
     // assign type and payload which will be used in switch ststement in reducer
     dispatch({
       type: PRODUCT_DETAILS_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+// NEW REVIEW
+export const newReview = (reviewData) => async (dispatch) => {
+  try {
+    dispatch({ type: NEW_REVIEW_REQUEST });
+
+    const config = {
+      headers: { "Content-Type": "application/json" },
+    };
+
+    const { data } = await axios.put(`/api/v1/review`, reviewData, config);
+
+    dispatch({
+      type: NEW_REVIEW_SUCCESS,
+      payload: data.success,
+    });
+  } catch (error) {
+    dispatch({
+      type: NEW_REVIEW_FAIL,
       payload: error.response.data.message,
     });
   }
