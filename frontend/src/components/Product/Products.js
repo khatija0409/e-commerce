@@ -7,7 +7,7 @@ import ProductCard from "../Home/ProductCard";
 import Pagination from "react-js-pagination";
 import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/core/Slider";
-import {useAlert} from "react-alert";
+import { useAlert } from "react-alert";
 import MetaData from "../layout/MetaData";
 
 const categories = [
@@ -20,20 +20,17 @@ const categories = [
   "SmartPhones",
 ];
 
-
 const Products = ({ match }) => {
   const dispatch = useDispatch();
-  const alert=useAlert();
+  const alert = useAlert();
 
   const [currentPage, setCurrentPage] = useState(1);
-  
+
   const [price, setPrice] = useState([0, 25000]);
 
   const [category, setCategory] = useState("");
 
   const [ratings, setRatings] = useState(0);
-
-
 
   const {
     products,
@@ -57,16 +54,16 @@ const Products = ({ match }) => {
   };
 
   useEffect(() => {
-    if(error){
+    if (error) {
       alert.error(error);
       dispatch(clearErrors());
     }
-    dispatch(getProduct(keyword, currentPage, price,category,ratings));
-  }, [dispatch, keyword, currentPage, price,category,ratings,alert,error]);
+    dispatch(getProduct(keyword, currentPage, price, category, ratings));
+  }, [dispatch, keyword, currentPage, price, category, ratings, alert, error]);
 
   let count = filteredProductsCount;
 
-  return ( 
+  return (
     <Fragment>
       {loading ? (
         <Loader />
@@ -122,11 +119,6 @@ const Products = ({ match }) => {
                 max={5}
               />
             </fieldset>
-
-
-
-
-
           </div>
 
           {/* adding pagination */}

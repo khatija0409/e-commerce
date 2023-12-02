@@ -2,8 +2,11 @@ import React, { Fragment, useEffect, useState } from "react";
 import Carousel from "react-material-ui-carousel";
 import "./ProductDetails.css";
 import { useSelector, useDispatch } from "react-redux";
-import { clearErrors, getProductDetails } from "../../actions/productAction";
-import ReactStars from "react-rating-stars-component";
+import {
+  clearErrors,
+  getProductDetails,
+  newReview,
+} from "../../actions/productAction";
 import ReviewCard from "./ReviewCard.js";
 import Loader from "../layout/Loader/Loader";
 import { useAlert } from "react-alert";
@@ -27,6 +30,17 @@ const ProductDetails = ({ match }) => {
   const { product, loading, error } = useSelector(
     (state) => state.productDetails
   );
+
+  const { success, error: reviewError } = useSelector(
+    (state) => state.newReview
+  );
+
+  const options = {
+    size: "large",
+    value: product.ratings,
+    readOnly: true,
+    precision: 0.5,
+  };
 
   const [quantity, setQuantity] = useState(1);
   const [open, setOpen] = useState(false);
@@ -66,7 +80,7 @@ const ProductDetails = ({ match }) => {
     myForm.set("productId", match.params.id);
 
     dispatch(newReview(myForm));
-
+    //  after rev is submitted the bos closes
     setOpen(false);
   };
 
@@ -76,17 +90,19 @@ const ProductDetails = ({ match }) => {
       //  after showing the error clear it
       dispatch(clearErrors());
     }
-    dispatch(getProductDetails(match.params.id));
-  }, [dispatch, match.params.id, error, alert]);
+    if (reviewError) {
+      alert.error(reviewError);
+      //  after showing the error clear it
+      dispatch(clearErrors());
+    }
+    if (success) {
+      alert.success("Review Submitted Successfully");
+      dispatch({ type: NEW_REVIEW_RESET });
+    }
 
-  const options = {
-    edit: false,
-    color: "rgb(20,20,20,0.1)",
-    activeColor: " #0a5aa9",
-    size: window.innerWidth < 600 ? 20 : 25,
-    value: product.ratings,
-    isHalf: true,
-  };
+    dispatch(getProductDetails(match.params.id));
+  }, [dispatch, match.params.id, error, alert, success, reviewError]);
+
   return (
     <Fragment>
       {loading ? (
@@ -118,8 +134,10 @@ const ProductDetails = ({ match }) => {
               </div>
 
               <div className="detailsBlock-2">
-                <ReactStars {...options} />
-                <span>({product.numOfReviews} Reviews)</span>
+                <Rating {...options} />
+                <span className="detailsBlock-2-span">
+                  ({product.numOfReviews} Reviews)
+                </span>
               </div>
 
               <div className="detailsBlock-3">
