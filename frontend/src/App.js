@@ -31,6 +31,11 @@ import OrderSuccess from "./components/Cart/OrderSuccess.js";
 import MyOrders from "./components/Order/MyOrders.js";
 import OrderDetails from "./components/Order/OrderDetails.js";
 import Dashboard from "./components/admin/Dashboard.js";
+import ProductList from "./components/admin/ProductList.js";
+import NewProduct from "./components/admin/NewProduct.js";
+import UpdateProduct from "./components/admin/UpdateProduct.js";
+import OrderList from "./components/admin/OrderList.js";
+import ProcessOrder from "./components/admin/ProcessOrder.js";
 
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -96,8 +101,43 @@ function App() {
         <ProtectedRoute exact path="/order/confirm" component={ConfirmOrder} />
         <ProtectedRoute exact path="/order/:id" component={OrderDetails} />
       </Switch>
-
-      <ProtectedRoute exact path="/admin/dashboard" component={Dashboard} />
+      {/* isAdmin is true so that as soon as admin logs in dashboard will be shown  */}
+      <ProtectedRoute
+        isAdmin={true}
+        exact
+        path="/admin/dashboard"
+        component={Dashboard}
+      />
+      <ProtectedRoute
+        isAdmin={true}
+        exact
+        path="/admin/products"
+        component={ProductList}
+      />
+      <ProtectedRoute
+        isAdmin={true}
+        exact
+        path="/admin/product"
+        component={NewProduct}
+      />
+      <ProtectedRoute
+        isAdmin={true}
+        exact
+        path="/admin/product/:id"
+        component={UpdateProduct}
+      />
+      <ProtectedRoute
+        isAdmin={true}
+        exact
+        path="/admin/orders"
+        component={OrderList}
+      />
+      <ProtectedRoute
+        isAdmin={true}
+        exact
+        path="/admin/order/:id"
+        component={ProcessOrder}
+      />
       <Footer />
     </Router>
   );

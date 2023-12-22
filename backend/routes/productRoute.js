@@ -11,6 +11,7 @@ const {
   createProductReview,
   getProductReviews,
   deleteReview,
+  getAdminProducts,
 } = require("../controllers/productController");
 const { isAuthUser } = require("../middleware/auth");
 const { authorizeRoles } = require("../middleware/auth");
@@ -19,6 +20,11 @@ const { authorizeRoles } = require("../middleware/auth");
 router.route("/products").get(getAllProducts); //show all proucts to everyone even if he is not logged in
 //EX:router.route("/products").get(isAuthUser, getAllProducts); //show all products to the user if he stays logged in: if user logs out then dont show the products and cookie gets del
 //post since we create products
+
+router
+  .route("/admin/products")
+  .get(isAuthUser, authorizeRoles("admin"), getAdminProducts);
+
 router
   .route("/admin/product/new")
   .post(isAuthUser, authorizeRoles("admin"), createProduct); //only admin can alter these

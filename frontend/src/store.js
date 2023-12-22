@@ -3,9 +3,11 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import {
-  productReducer,
+  productsReducer,
   productDetailsReducer,
   newReviewReducer,
+  newProductReducer,
+  productReducer,
 } from "./reducers/productReducer";
 import {
   forgotPasswordReducer,
@@ -14,9 +16,11 @@ import {
 } from "./reducers/userReducer";
 import { cartReducer } from "./reducers/cartReducer";
 import {
+  allOrdersReducer,
   myOrdersReducer,
   newOrderReducer,
   orderDetailsReducer,
+  orderReducer,
 } from "./reducers/orderReducer";
 // reducer>> is a func whic conatians calculation and logic to be performed on the state
 // applymiddleware>>used to apply middlewarer
@@ -24,7 +28,7 @@ import {
 // a store conatins state of the application
 const reducer = combineReducers({
   // reducer func of products
-  products: productReducer,
+  products: productsReducer,
   productDetails: productDetailsReducer,
   user: userReducer,
   profile: profileReducer,
@@ -34,6 +38,10 @@ const reducer = combineReducers({
   myOrders: myOrdersReducer,
   orderDetails: orderDetailsReducer,
   newReview: newReviewReducer,
+  newProduct: newProductReducer,
+  product: productReducer,
+  allOrders: allOrdersReducer,
+  order: orderReducer,
 });
 
 let initialState = {
