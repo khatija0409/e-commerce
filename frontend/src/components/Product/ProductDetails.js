@@ -22,11 +22,9 @@ import {
 import { Rating } from "@material-ui/lab";
 import { NEW_REVIEW_RESET } from "../../constants/productConstants";
 
-//match is req.params.id
 const ProductDetails = ({ match }) => {
   const dispatch = useDispatch();
   const alert = useAlert();
-  //extract datat from the store
   const { product, loading, error } = useSelector(
     (state) => state.productDetails
   );
@@ -63,7 +61,6 @@ const ProductDetails = ({ match }) => {
 
   const addToCartHandler = () => {
     // getting id from the url
-    // when we click on a product its url has product id which we are exttracting here
     dispatch(addItemsToCart(match.params.id, quantity));
     alert.success("Item Added To Cart");
   };
@@ -80,7 +77,6 @@ const ProductDetails = ({ match }) => {
     myForm.set("productId", match.params.id);
 
     dispatch(newReview(myForm));
-    //  after rev is submitted the bos closes
     setOpen(false);
   };
 
@@ -113,7 +109,7 @@ const ProductDetails = ({ match }) => {
           <div className="ProductDetails">
             <div>
               <Carousel>
-                {/* if prod images are present ten map on the images */}
+                {/* if prod images are present then map on the images */}
                 {product.images &&
                   product.images.map((item, i) => (
                     <img
@@ -126,7 +122,6 @@ const ProductDetails = ({ match }) => {
                   ))}
               </Carousel>
             </div>
-            {/* deatuls of img next to the image */}
             <div>
               <div className="detailsBlock-1">
                 <h2>{product.name}</h2>
@@ -205,7 +200,6 @@ const ProductDetails = ({ match }) => {
             </DialogActions>
           </Dialog>
 
-          {/*  if reviews are there and there is first review elemnt then map through them and hsow the revs */}
           {product.reviews && product.reviews[0] ? (
             <div className="reviews">
               {product.reviews &&

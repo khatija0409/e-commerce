@@ -12,9 +12,7 @@ import LaunchIcon from "@material-ui/icons/Launch";
 
 const MyOrders = () => {
   const dispatch = useDispatch();
-
   const alert = useAlert();
-
   const { loading, error, orders } = useSelector((state) => state.myOrders);
   const { user } = useSelector((state) => state.user);
 
@@ -57,7 +55,6 @@ const MyOrders = () => {
       sortable: false,
       renderCell: (params) => {
         return (
-            // get value of that whose field is id
           <Link to={`/order/${params.getValue(params.id, "id")}`}>
             <LaunchIcon />
           </Link>
@@ -102,7 +99,6 @@ const MyOrders = () => {
             className="myOrdersTable"
             autoHeight
           />
-
           <Typography id="myOrdersHeading">{user.name}'s Orders</Typography>
         </div>
       )}

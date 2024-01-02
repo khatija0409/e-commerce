@@ -79,7 +79,7 @@ const NewProduct = ({ history }) => {
 
       reader.onload = () => {
         if (reader.readyState === 2) {
-          // along with previous images add the current image also
+          // along with previous images add the current image 
           setImagesPreview((old) => [...old, reader.result]);
           setImages((old) => [...old, reader.result]);
         }

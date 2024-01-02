@@ -15,10 +15,11 @@ const {
 } = require("../controllers/userController");
 const { isAuthUser, authorizeRoles } = require("../middleware/auth");
 const router = express.Router();
+// Routes
 router.route("/register").post(registerUser);
 router.route("/login").post(loginUser);
 router.route("/password/forgot").post(forgotPassword);
-router.route("/password/reset/:token").put(resetPassword); //in postman paste the link we got in mail
+router.route("/password/reset/:token").put(resetPassword); 
 router.route("/logout").get(logOutUser);
 router.route("/me").get(isAuthUser, getUserDetails);
 router.route("/password/update").put(isAuthUser, updatePassword);

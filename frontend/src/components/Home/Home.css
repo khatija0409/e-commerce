@@ -1,6 +1,6 @@
 .banner {
-    background-image: linear-gradient(to right, rgb(103, 148, 220) , rgb(16, 51, 179));
-    /* background-image: url("../../images/profile.png"); */
+  
+    background-image: url("../../images/cover.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -69,8 +69,8 @@
     text-decoration: none;
   }
   .banner > a > button:hover {
-    background-color: rgba(16, 73, 207, 0);
-    filter: invert(100%);
+    background-color: rgba(4, 30, 90, 0);
+    /* filter: invert(100%); */
   }
   .banner::after {
     content: "";
@@ -83,8 +83,14 @@
     clip-path: polygon(0 100%, 100% 80%, 100% 100%,0 100%);
     max-width: 100%;
   }
+  .text{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: medium;
+  }
 
-   
+   .heading{
+    color: #01255e;
+   }
   
    
   .homeHeading {

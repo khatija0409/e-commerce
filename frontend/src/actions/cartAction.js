@@ -15,13 +15,9 @@ export const addItemsToCart = (id, quantity) => async (dispatch, getState) => {
         quantity,
       },
     });
-    // when items are added to cart and when page is relaoded all data will disapper.Imorder to avpid i tdo as below
-
-//   name of storage is cartitems
-// getstae is method of redux
     localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));
   };
-  // REMOVE FROM CART
+// REMOVE FROM CART
 export const removeItemsFromCart = (id) => async (dispatch, getState) => {
   dispatch({
     type: REMOVE_CART_ITEM,
@@ -36,6 +32,5 @@ export const saveShippingInfo = (data) => async (dispatch) => {
     type: SAVE_SHIPPING_INFO,
     payload: data,
   });
-
   localStorage.setItem("shippingInfo", JSON.stringify(data));
 };

@@ -124,7 +124,7 @@ const Payment = ({ history }) => {
           <Typography>Card Info</Typography>
           <div>
             <CreditCardIcon />
-            {/* like an inp tag ensures if 16 digits are enetref */}
+            {/* ensures if 16 digits are entered */}
             <CardNumberElement className="paymentInput" />
           </div>
           <div>
