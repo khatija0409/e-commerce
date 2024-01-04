@@ -164,7 +164,7 @@ export const getProductDetails = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: PRODUCT_DETAILS_FAIL,
-      payload: error.response.data?.message,
+      payload: error.response.data.message,
     });
   }
 };
