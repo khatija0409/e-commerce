@@ -81,6 +81,7 @@ const ProductDetails = ({ match }) => {
   };
 
   useEffect(() => {
+    
     if (error) {
       alert.error(error);
       //  after showing the error clear it
