@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Rating } from "@material-ui/lab";
 const ProductCard = ({ product }) => {
-  console.log("Product called")
   const options = {
     size: "large",
     value: product.ratings,
