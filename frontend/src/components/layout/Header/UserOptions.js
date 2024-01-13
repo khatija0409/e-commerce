@@ -1,7 +1,4 @@
-// its in haeder bcz its placed in the top sectipn to show log in deatils of the user
-
 import React, { Fragment, useState } from "react";
-// style for userOptions
 import "./Header.css";
 import { SpeedDial, SpeedDialAction } from "@material-ui/lab";
 import Backdrop from "@material-ui/core/Backdrop";
@@ -12,7 +9,6 @@ import ListAltIcon from "@material-ui/icons/ListAlt";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { useHistory } from "react-router-dom";
 import { useAlert } from "react-alert";
-
 import { logout } from "../../../actions/userAction";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -22,7 +18,6 @@ const UserOptions = ({ user }) => {
   const [open, setOpen] = useState(false);
   const history = useHistory();
   const alert = useAlert();
-  // array for all options to be on every user
   const dispatch = useDispatch();
   const options = [
     { icon: <ListAltIcon />, name: "Orders", func: orders },
@@ -40,8 +35,8 @@ const UserOptions = ({ user }) => {
     { icon: <ExitToAppIcon />, name: "Logout", func: logoutUser },
   ];
 
-  // if user is admin then show dashboard icon also
-  // unshift adds icon at the strat of the array
+  // if user is admin then show dashboard icon 
+  // unshift adds icon at the start of the array
   if (user?.role === "admin") {
     options.unshift({
       icon: <DashboardIcon />,

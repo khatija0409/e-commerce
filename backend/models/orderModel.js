@@ -29,7 +29,6 @@ const orderSchema = new mongoose.Schema({
   orderItems: [
     {
       name: {
-        //name of prod
         type: String,
         required: true,
       },
@@ -54,7 +53,7 @@ const orderSchema = new mongoose.Schema({
     },
   ],
   user: {
-    type: mongoose.Schema.ObjectId, //id of user whose order it is
+    type: mongoose.Schema.ObjectId, //id of user 
     ref: "User",
     required: true,
   },
@@ -73,7 +72,6 @@ const orderSchema = new mongoose.Schema({
     required: true,
   },
   itemsPrice: {
-    //total price of the prod depending on quantity 1,2,3..
     type: Number,
     default: 0,
     required: true,

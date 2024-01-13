@@ -121,7 +121,6 @@ const Shipping = ({ history }) => {
                     ))}
                 </select>
               </div>
-              {/* if someone has has enetered country firled then go for its state */}
   
               {country && (
                 <div>

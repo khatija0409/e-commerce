@@ -41,14 +41,12 @@ const Products = ({ match }) => {
     filteredProductsCount,
   } = useSelector((state) => state.products);
 
-  //keyword is extracted from the url after a search is amade for a product in search page
-  // usestate func of currentpage
+  //keyword is extracted from the url after a search is made for a product in search page
   const keyword = match.params.keyword;
   const setCurrentPageNo = (e) => {
     setCurrentPage(e);
   };
 
-  // pricehandler>usestate func of price
   const priceHandler = (event, newPrice) => {
     setPrice(newPrice);
   };
@@ -81,7 +79,7 @@ const Products = ({ match }) => {
 
           {/* for adding price variation filter */}
           <div className="filterBox">
-            {/* typography is alike a p tag with css attributes */}
+            {/* typography is a p tag with css attributes */}
             <Typography>Price</Typography>
             <Slider
               value={price}
@@ -105,7 +103,7 @@ const Products = ({ match }) => {
                 </li>
               ))}
             </ul>
-            {/* /filedset is used to group elements togteher like a conaginer and legend is its heading */}
+            {/* /filedset is used to group elements together like a container and legend is its heading */}
             <fieldset>
               <Typography component="legend">Ratings Above</Typography>
               <Slider
@@ -123,7 +121,6 @@ const Products = ({ match }) => {
 
           {/* adding pagination */}
           {/* if there are no more products to be displayed on next page then remove the pagination */}
-          {/* after filtered for price is applied the count of products is amde and then only pagination willl be applied */}
 
           {resultPerPage < count && (
             <div className="paginationBox">

@@ -9,7 +9,7 @@ import AlertTemplate from "react-alert-template-basic";
 
 
 const options={
-  //hoe long alert shoudl be shown
+// alert duration
   timeout: 5000,
   position:positions.BOTTOM_CENTER,
   transition:transitions.SCALE,
@@ -17,12 +17,10 @@ const options={
 
 ReactDOM.render(
   // <Provider> component makes the Redux store available to any nested components that need to access the Redux store.
-  //Provider is used to wrap below content instead of <React.StrictMode> 
   <Provider store={store}>
     <AlertProvider template={AlertTemplate}{...options}>
     <App />
     </AlertProvider>
-     
 </Provider>,
   document.getElementById("root")
 );

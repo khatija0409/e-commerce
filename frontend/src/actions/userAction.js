@@ -34,9 +34,11 @@ import {
   USER_DETAILS_REQUEST,
   USER_DETAILS_SUCCESS,
   USER_DETAILS_FAIL,
+<<<<<<< HEAD
 
+=======
+>>>>>>> a219c49a9a93a2013050529638d7c816d8dfbeb2
   CLEAR_ERRORS,
-  
 } from "../constants/userConstants";
 import axios from "axios";
 // login
@@ -46,9 +48,7 @@ export const login = (email, password) => async (dispatch) => {
     const config = { headers: { "Content-Type": "application/json" } };
     const { data } = await axios.post(
       `/api/v1/login`,
-      // email passowrd is received from above
       { email, password },
-      // config since it is post request
       config
     );
     dispatch({ type: LOGIN_SUCCESS, payload: data.user });
@@ -56,26 +56,18 @@ export const login = (email, password) => async (dispatch) => {
     dispatch({ type: LOGIN_FAIL, payload: error.response.data.message });
   }
 };
-
-// userdata is the data send in myform object
 // register
 export const register = (userData) => async (dispatch) => {
   try {
     dispatch({ type: REGISTER_USER_REQUEST });
     const config = {
       headers: {
-        // multipart since ifferent data types ares used
+        // multipart since dfferent data types are used
         "Content-Type": "multipart/form-data",
       },
     };
     // post method in axios takes 3 paramters>url,data,config
-    const { data } = await axios.post(
-      `/api/v1/register`,
-      // email passowrd is received from above
-      userData,
-      // config since it is post request
-      config
-    );
+    const { data } = await axios.post(`/api/v1/register`, userData, config);
     dispatch({ type: REGISTER_USER_SUCCESS, payload: data.user });
   } catch (error) {
     dispatch({
@@ -85,7 +77,6 @@ export const register = (userData) => async (dispatch) => {
   }
 };
 // load user
-// when user is already logged in load the user
 export const loadUser = () => async (dispatch) => {
   try {
     dispatch({ type: LOAD_USER_REQUEST });
@@ -97,7 +88,6 @@ export const loadUser = () => async (dispatch) => {
   }
 };
 // logout
-// after log out the user options icin will disappear
 export const logout = () => async (dispatch) => {
   try {
     await axios.get(`/api/v1/logout`);
@@ -106,25 +96,20 @@ export const logout = () => async (dispatch) => {
     dispatch({ type: LOGOUT_FAIL, payload: error.response.data.message });
   }
 };
+<<<<<<< HEAD
 // to update profile
+=======
+//  update profile
+>>>>>>> a219c49a9a93a2013050529638d7c816d8dfbeb2
 export const updateProfile = (userData) => async (dispatch) => {
   try {
     dispatch({ type: UPDATE_PROFILE_REQUEST });
     const config = {
       headers: {
-        // multipart since ifferent data types ares used
         "Content-Type": "multipart/form-data",
       },
     };
-    // post method in axios takes 3 paramters>url,data,config
-    const { data } = await axios.put(
-      `/api/v1/me/update`,
-      // email passowrd is received from above
-      userData,
-      // config since it is post request
-      config
-    );
-    // success is sent in backemnd
+    const { data } = await axios.put(`/api/v1/me/update`, userData, config);
     dispatch({ type: UPDATE_PROFILE_SUCCESS, payload: data.success });
   } catch (error) {
     dispatch({
@@ -137,7 +122,6 @@ export const updateProfile = (userData) => async (dispatch) => {
 export const updatePassword = (passwords) => async (dispatch) => {
   try {
     dispatch({ type: UPDATE_PASSWORD_REQUEST });
-// application type since no img is not there
     const config = { headers: { "Content-Type": "application/json" } };
 
     const { data } = await axios.put(
@@ -162,7 +146,6 @@ export const forgotPassword = (email) => async (dispatch) => {
     const config = { headers: { "Content-Type": "application/json" } };
 
     const { data } = await axios.post(`/api/v1/password/forgot`, email, config);
-// payload value is sent in backend
     dispatch({ type: FORGOT_PASSWORD_SUCCESS, payload: data.message });
   } catch (error) {
     dispatch({

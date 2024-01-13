@@ -19,7 +19,10 @@ const About = () => {
             <span>
               <ul>
                 <li>It is an E-Commerce Website made using MERN tech stack.</li>
+<<<<<<< HEAD
 
+=======
+>>>>>>> a219c49a9a93a2013050529638d7c816d8dfbeb2
                 <li>
                   It has Login and SignUp options along with authentication.
                 </li>

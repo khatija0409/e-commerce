@@ -46,7 +46,10 @@ export const userReducer = (state = { user: [] }, action) => {
     case LOGIN_REQUEST:
     case REGISTER_USER_REQUEST:
     case LOAD_USER_REQUEST:
+<<<<<<< HEAD
       // instead of break we use return
+=======
+>>>>>>> a219c49a9a93a2013050529638d7c816d8dfbeb2
       return {
         loading: true,
         isAuthenticated: false,
@@ -98,7 +101,6 @@ export const userReducer = (state = { user: [] }, action) => {
       return state;
   }
 };
-// after reducer is made add it in store
 export const profileReducer = (state = {}, action) => {
   switch (action.type) {
     case UPDATE_PROFILE_REQUEST:

@@ -1,10 +1,8 @@
-//models folder has all mongoose models
 const mongoose = require("mongoose");
-//making schema for products to store specify anything about product
 const productSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: [true, "Please enter the product name"], //[if entered,if not entered]
+    required: [true, "Please enter the product name"], 
     trim: true, //to remove whitespaces
   },
   description: {
@@ -20,10 +18,8 @@ const productSchema = new mongoose.Schema({
     type: Number,
     default: 0, //if no rating is given this is default value
   },
-  //as there will be many images of a single product use array of objects below
   images: [
     {
-      //well use cloudnavi to host images and we get 2 things
       public_id: {
         type: String,
         required: true,
@@ -46,7 +42,7 @@ const productSchema = new mongoose.Schema({
   },
   numOfReviews: {
     type: String,
-    default: 0, //inititally there will be no reviews
+    default: 0, 
   },
   reviews: [
     {
@@ -69,18 +65,14 @@ const productSchema = new mongoose.Schema({
       },
     },
   ],
-  //user id is displayed  along with product to know who created it
-  //ref tells it to use id from user model
   user: {
     type: mongoose.Schema.ObjectId,
     ref: "User",
     required: true,
   },
-  //to know when it was created
   createdAt: {
     type: Date,
     default: Date.now,
   },
 });
-//making model and exporting it
 module.exports = mongoose.model("Product", productSchema);

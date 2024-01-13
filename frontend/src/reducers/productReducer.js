@@ -1,5 +1,3 @@
-// function that manages all calculatons to be done on any state of a product
-// used to change state
 import {
   ALL_PRODUCT_FAIL,
   ALL_PRODUCT_REQUEST,
@@ -26,7 +24,12 @@ import {
   UPDATE_PRODUCT_SUCCESS,
   UPDATE_PRODUCT_FAIL,
   UPDATE_PRODUCT_RESET,
+<<<<<<< HEAD
   ALL_REVIEW_REQUEST,ALL_REVIEW_SUCCESS,
+=======
+  ALL_REVIEW_REQUEST,
+  ALL_REVIEW_SUCCESS,
+>>>>>>> a219c49a9a93a2013050529638d7c816d8dfbeb2
   ALL_REVIEW_FAIL,
   DELETE_REVIEW_REQUEST,
   DELETE_REVIEW_SUCCESS,
@@ -34,25 +37,19 @@ import {
   DELETE_REVIEW_RESET,
   CLEAR_ERRORS,
 } from "../constants/productConstants";
-export const productsReducer = (state = { products: [] }, action) => {
-  // state has empty array of products
-  // action.type refers to ALL_PRODUCT_FAIL,.....
 
+export const productsReducer = (state = { products: [] }, action) => {
   switch (action.type) {
     case ALL_PRODUCT_REQUEST:
     case ADMIN_PRODUCT_REQUEST:
       return {
-        // during product req loading is true
         loading: true,
         products: [],
       };
     case ALL_PRODUCT_SUCCESS:
       return {
-        // during product success loading is false
         loading: false,
-        // get all products
         products: action.payload.products,
-        // since productCount is used in backend product controller dont change
         productsCount: action.payload.productCount,
         resultPerPage: action.payload.resultsPerPage,
         filteredProductsCount: action.payload.filteredProductsCount,
@@ -80,7 +77,6 @@ export const productsReducer = (state = { products: [] }, action) => {
 };
 
 // Create product>ADMIN
-
 export const newProductReducer = (state = { product: {} }, action) => {
   switch (action.type) {
     case NEW_PRODUCT_REQUEST:
@@ -115,24 +111,16 @@ export const newProductReducer = (state = { product: {} }, action) => {
   }
 };
 
-//reducer func for getting details of products
-
 export const productDetailsReducer = (state = { product: [] }, action) => {
-  // state has empty array of individual product detail that we have sent in backend in prod controller
-  // action.type refers to ALL_PRODUCT_FAIL,.....
-
   switch (action.type) {
     case PRODUCT_DETAILS_REQUEST:
       return {
-        // during product req loading is true
         loading: true,
         ...state,
       };
     case PRODUCT_DETAILS_SUCCESS:
       return {
-        // during product success loading is false
         loading: false,
-        // get all products
         product: action.payload,
       };
     case PRODUCT_DETAILS_FAIL:
@@ -293,4 +281,8 @@ export const reviewReducer = (state = {}, action) => {
     default:
       return state;
   }
+<<<<<<< HEAD
 };
+=======
+};
+>>>>>>> a219c49a9a93a2013050529638d7c816d8dfbeb2

@@ -2,8 +2,11 @@
     margin: 0;
     scroll-behavior: smooth;
   }
+<<<<<<< HEAD
   
   /* to remove up and down arrow in input field */
+=======
+>>>>>>> a219c49a9a93a2013050529638d7c816d8dfbeb2
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

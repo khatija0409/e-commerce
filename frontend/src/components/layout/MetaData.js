@@ -3,7 +3,7 @@ import Helmet from "react-helmet"
 const MetaData = ({title}) => {
   return (
 <Helmet>
-    {/*in whichever component this gets used ,its title will be set with hhe help of helmet  */}
+    {/* title of the page is set using helmet  */}
     <title>
         {title}
     </title>

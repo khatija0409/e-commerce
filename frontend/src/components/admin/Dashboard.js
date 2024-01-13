@@ -1,32 +1,35 @@
-import React, { useEffect } from "react";
+import React, { Fragment, useEffect } from "react";
 import Sidebar from "./Sidebar.js";
 import "./dashboard.css";
 import { Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import { Doughnut, Line } from "react-chartjs-2";
+import { Line } from "react-chartjs-2";
 import { useSelector, useDispatch } from "react-redux";
 import { getAdminProduct } from "../../actions/productAction";
 import { getAllOrders } from "../../actions/orderAction.js";
 import { getAllUsers } from "../../actions/userAction.js";
 import MetaData from "../layout/MetaData";
+import Loader from "../layout/Loader/Loader";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
 
-  const { products } = useSelector((state) => state.products);
+  const { products, loading } = useSelector((state) => state.products);
 
   const { orders } = useSelector((state) => state.allOrders);
 
   const { users } = useSelector((state) => state.allUsers);
 
-  let outOfStock = 0;
+  
+  // let outOfStock = 0;
 
-  products &&
-    products.forEach((item) => {
-      if (item.stock === 0) {
-        outOfStock += 1;
-      }
-    });
+  // products &&
+  //   products.forEach((item) => {
+  //     if (item.stock === 0) {
+  //       outOfStock += 1;
+  //     }
+  //   });
+  
 
   useEffect(() => {
     dispatch(getAdminProduct());
@@ -34,6 +37,11 @@ const Dashboard = () => {
     dispatch(getAllUsers());
   }, [dispatch]);
 
+<<<<<<< HEAD
+=======
+ 
+
+>>>>>>> a219c49a9a93a2013050529638d7c816d8dfbeb2
   let totalAmount = 0;
   orders &&
     orders.forEach((item) => {
@@ -51,31 +59,62 @@ const Dashboard = () => {
     ],
   };
 
-  const doughnutState = {
-    labels: ["Out of Stock", "InStock"],
-    datasets: [
-      {
-        backgroundColor: ["#00A6B4", "#6800B4"],
-        hoverBackgroundColor: ["#4B5000", "#35014F"],
-        data: [outOfStock, products.length - outOfStock],
-      },
-    ],
-  };
+  // const doughnutState = {
+  //   labels: ["Out of Stock", "InStock"],
+  //   datasets: [
+  //     {
+  //       backgroundColor: ["#00A6B4", "#6800B4"],
+  //       hoverBackgroundColor: ["#4B5000", "#35014F"],
+  //       data: [outOfStock, products.length - outOfStock],
+  //     },
+  //   ],
+  // };
 
   return (
-    <div className="dashboard">
-      <MetaData title="Dashboard - Admin Panel" />
-      <Sidebar />
+    <Fragment>
+      {loading ? (
+        <Loader />
+      ) : (
+        <Fragment>
+          <div className="dashboard">
+            <MetaData title="Dashboard - Admin Panel" />
+            <Sidebar />
 
-      <div className="dashboardContainer">
-        <Typography component="h1">Dashboard</Typography>
+            <div className="dashboardContainer">
+              <Typography component="h1">Dashboard</Typography>
 
-        <div className="dashboardSummary">
-          <div>
-            <p>
-              Total Amount <br /> ₹{totalAmount}
-            </p>
+              <div className="dashboardSummary">
+                <div>
+                  <p>
+                    Total Amount <br /> ₹{totalAmount}
+                  </p>
+                </div>
+                <div className="dashboardSummaryBox2">
+                  <Link to="/admin/products">
+                    <p>Products</p>
+                    <p>{products && products.length}</p>
+                  </Link>
+                  <Link to="/admin/orders">
+                    <p>Orders</p>
+                    <p>{orders && orders.length}</p>
+                  </Link>
+                  <Link to="/admin/users">
+                    <p>Users</p>
+                    <p>{users && users.length}</p>
+                  </Link>
+                </div>
+              </div>
+
+              <div className="lineChart">
+                <Line data={lineState} />
+              </div>
+
+              {/* <div className="doughnutChart">
+                <Doughnut data={doughnutState} />
+              </div> */}
+            </div>
           </div>
+<<<<<<< HEAD
           <div className="dashboardSummaryBox2">
             <Link to="/admin/products">
               <p>Products</p>
@@ -101,6 +140,11 @@ const Dashboard = () => {
         </div>
       </div>
     </div>
+=======
+        </Fragment>
+      )}
+    </Fragment>
+>>>>>>> a219c49a9a93a2013050529638d7c816d8dfbeb2
   );
 };
 

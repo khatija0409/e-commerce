@@ -1,4 +1,3 @@
-// it conatains what to do when link of forgot password is clicked
 import React, { Fragment, useState, useEffect } from "react";
 import "./ResetPassword.css";
 import Loader from "../layout/Loader/Loader";
