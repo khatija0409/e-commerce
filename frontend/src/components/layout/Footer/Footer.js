@@ -13,7 +13,7 @@ const Footer = () => {
         <img src={appStore} alt="Appstore" />
       </div>
       <div className="midFooter">
-        <h1>ECOMMERCE.</h1>
+        <h1>ECOMMERCE</h1>
         <p>Known for meeting expectations.</p>
         <p>Copyrights 2023 &copy;Khatija </p>
       </div>

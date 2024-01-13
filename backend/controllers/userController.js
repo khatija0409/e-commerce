@@ -244,17 +244,13 @@ exports.updateRole = catchAsyncErrors(async (req, res, next) => {
     email: req.body.email,
     role: req.body.role,
   };
-  const user = await User.findByIdAndUpdate(req.params.id, newUserData, {
+   await User.findByIdAndUpdate(req.params.id, newUserData, {
     //it is req.params.id and not req.user.id otherwise admin himself will get updated
     new: true,
     runValidators: true,
     useFindAndModify: false,
   });
-  if (!user) {
-    return next(
-      new ErrorHandler(`User does not exist with ID:${req.params.id}`, 400)
-    );
-  }
+ 
 
   res.status(200).json({
     success: true,
@@ -270,7 +266,12 @@ exports.deleteUser = catchAsyncErrors(async (req, res, next) => {
       new ErrorHandler(`User does not exist with ID:${req.params.id}`, 400)
     );
   }
-  //we will remove avatar from cloudinary
+  
+
+  const imageId = user.avatar.public_id;
+
+  await cloudinary.v2.uploader.destroy(imageId);
+
   await user.deleteOne();
   res.status(200).json({
     success: true,

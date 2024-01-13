@@ -36,6 +36,12 @@ import NewProduct from "./components/admin/NewProduct.js";
 import UpdateProduct from "./components/admin/UpdateProduct.js";
 import OrderList from "./components/admin/OrderList.js";
 import ProcessOrder from "./components/admin/ProcessOrder.js";
+import UsersList from "./components/admin/UsersList.js";
+import UpdateUser from "./components/admin/UpdateUser.js";
+import ProductReviews from "./components/admin/ProductReviews.js";
+import Contact from "./components/layout/Contact/Contact.js";
+import About from "./components/layout/About/About.js";
+import NotFound from "./components/layout/Not Found/NotFound.js";
 
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -60,14 +66,24 @@ function App() {
 
     getStripeApiKey();
   }, []);
-
+  window.addEventListener("contextmenu", (e) => e.preventDefault());
   return (
     <Router>
       <Header />
       {/* if user is logged in we show that user is logged in by this feature */}
       {isAuthenticated && <UserOptions user={user} />}
+      {/* belongs to stripe component */}
+      {stripeApiKey && (
+        <Elements stripe={loadStripe(stripeApiKey)}>
+          <ProtectedRoute exact path="/process/payment" component={Payment} />
+        </Elements>
+      )}
+<Switch>
+
+ 
       {/* to get home page */}
       <Route exact path="/" component={Home} />
+      <Route exact path="/about" component={About} />
       {/* to get details of single product */}
       <Route exact path="/product/:id" component={ProductDetails} />
       {/* to get all products */}
@@ -86,21 +102,17 @@ function App() {
       <Route exact path="/password/forgot" component={ForgotPassword} />
       <Route exact path="/password/reset/:token" component={ResetPassword} />
       <Route exact path="/cart" component={Cart} />
+      <Route exact path="/contact" component={Contact} />
       <ProtectedRoute exact path="/shipping" component={Shipping} />
 
-      {/* belongs to stripe component */}
-      {stripeApiKey && (
-        <Elements stripe={loadStripe(stripeApiKey)}>
-          <ProtectedRoute exact path="/process/payment" component={Payment} />
-        </Elements>
-      )}
+       
       <ProtectedRoute exact path="/success" component={OrderSuccess} />
       <ProtectedRoute exact path="/orders" component={MyOrders} />
-      <Switch>
+     
         {/* at once only one page is loaded othrwise btoh will try to load at same time and  cause prob */}
         <ProtectedRoute exact path="/order/confirm" component={ConfirmOrder} />
         <ProtectedRoute exact path="/order/:id" component={OrderDetails} />
-      </Switch>
+      
       {/* isAdmin is true so that as soon as admin logs in dashboard will be shown  */}
       <ProtectedRoute
         isAdmin={true}
@@ -138,6 +150,32 @@ function App() {
         path="/admin/order/:id"
         component={ProcessOrder}
       />
+<ProtectedRoute
+        isAdmin={true}
+        exact
+        path="/admin/users"
+        component={UsersList}
+      />
+<ProtectedRoute
+        isAdmin={true}
+        exact
+        path="/admin/user/:id"
+        component={UpdateUser}
+      />
+      <ProtectedRoute
+        isAdmin={true}
+        exact
+        path="/admin/reviews"
+        component={ProductReviews}
+      />
+      
+      <Route
+          component={NotFound}
+          
+        />
+
+</Switch>
+
       <Footer />
     </Router>
   );

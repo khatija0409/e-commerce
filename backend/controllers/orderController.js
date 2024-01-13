@@ -83,9 +83,12 @@ exports.updateOrder = catchAsyncErrors(async (req, res, next) => {
   }
   //if not yet delivered
   //change quantity in stock present in product for the already delivered itmes
-  order.orderItems.forEach(async (order) => {
-    await updateStock(order.product, order.quantity); //product id and quantity
-  });
+  if(req.body.status==="Shipped"){
+    order.orderItems.forEach(async (order) => {
+      await updateStock(order.product, order.quantity); //product id and quantity
+    });
+
+  }
   //after stock is updated
   order.orderStatus = req.body.status;
   //if order status till now is not delivered and now we are updating in body that its delivered

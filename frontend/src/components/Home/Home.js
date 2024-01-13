@@ -37,8 +37,8 @@ const Home = () => {
         <Fragment>
           <MetaData title="ECOMMERCE" />
           <div className="banner">
-            <p>Welcome to Ecommerce Website </p>
-            <h1>FIND AMAZING PRODUCTS BELOW</h1>
+            <p className="text">Welcome to Ecommerce Website </p>
+            <h1 className="heading">FIND AMAZING PRODUCTS BELOW</h1>
 
             <a href="#container">
               <button>
